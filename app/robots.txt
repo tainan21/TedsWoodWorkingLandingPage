@@ -1,0 +1,6 @@
+// app/robots.txt
+User-agent: *
+Disallow: /admin
+Allow: /
+
+Sitemap: https://www.tedsplan.shop/sitemap.xml
