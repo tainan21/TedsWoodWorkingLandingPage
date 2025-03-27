@@ -1,5 +1,12 @@
-import type { Metadata } from 'next';
-import './globals.css';
+import type { Metadata } from "next";
+import "./globals.css";
+import { Inter } from "next/font/google";
+import { Suspense } from "react";
+import MetaTags from "@/app/MetaTags"; 
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
+import { GoogleTagManager } from '@next/third-parties/google';
+import MetaPixel from "@/lib/facebook-meta"; // Importando o Meta Pixel
 
 export const metadata: Metadata = {
   title: 'Teds Wood Working',
@@ -28,7 +35,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-gray-100 text-gray-900">{children}</body>
-    </html>
+    <head>
+      {/* Utiliza o MetaTags para injetar SEO avançado */}
+    
+    <MetaPixel /> 
+
+    </head>
+    <body className="bg-gray-100 text-gray-900">
+        <Suspense fallback={<div className="min-h-screen bg-background" />}>
+          {children}
+          <GoogleTagManager gtmId="GTM-N2BJVRCH" />
+          <SpeedInsights />
+          <Analytics />
+        </Suspense>
+    </body>
+  </html>
   );
 }

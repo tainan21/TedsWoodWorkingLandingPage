@@ -21,7 +21,6 @@ import AIWoodworkingAssistant from "@/components/layout/ai-woodworking-assistant
 import FloatingCart from "@/components/layout/floating-cart"
 import EmotionalCTA from "@/components/layout/emotional-cta"
 
-
 export const metadata: Metadata = {
   title: 'Teds Wood Working',
   description: 'Explore DIY woodworking plans, projects, and tools with Teds Wood Working.',
@@ -42,8 +41,7 @@ export const metadata: Metadata = {
   ].join(', '),
 };
 
-export default function Home(): React.ReactElement {
-  
+export default function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col bg-[#f9f5f0]">
       {/* Sticky Top Bar */}
@@ -115,7 +113,8 @@ export default function Home(): React.ReactElement {
       </div>
     </section>
   
-      <section className="py-8 bg-[#5a3d2b] text-white">
+        {/* Conversion Component */}
+        <section className="py-8 bg-[#5a3d2b] text-white">
           <div className="container mx-auto px-4">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex items-center gap-4">
@@ -145,8 +144,22 @@ export default function Home(): React.ReactElement {
             </div>
           </div>
         </section>
-        
-        <section className="py-16 bg-[#f9f5f0]">
+        {/* Before & After Section
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <h2 className="mb-6 text-center text-3xl font-bold text-[#5a3d2b] md:text-4xl">
+              Before & After Transformations
+            </h2>
+            <p className="mx-auto mb-12 max-w-2xl text-center text-[#5a3d2b]/80">
+              See the amazing transformations our customers have achieved with our woodworking plans. Hover over each
+              card to see the finished projects.
+            </p>
+
+            <BeforeAfterCards />
+          </div>
+        </section> */}
+  {/* Live Pricing & Discounts */}
+  <section className="py-16 bg-[#f9f5f0]">
           <div className="container mx-auto px-4">
             <h2 className="mb-6 text-center text-3xl font-bold text-[#5a3d2b] md:text-4xl">
               Special Limited-Time Offer
@@ -158,6 +171,7 @@ export default function Home(): React.ReactElement {
             <CountdownTimer />
           </div>
         </section>
+              {/* Dynamic Showcase Grid */}
               <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <h2 className="mb-8 text-center text-3xl font-bold text-[#5a3d2b] md:text-4xl">
@@ -171,15 +185,28 @@ export default function Home(): React.ReactElement {
           </div>
         </section>
 
+        {/* Customer Success Timeline */}
         <section className="py-16 bg-[#f9f5f0]" id="testimonials">
           <div className="container mx-auto px-4">
             <h2 className="mb-12 text-center text-3xl font-bold text-[#5a3d2b] md:text-4xl">
               Success Stories From Our Community
             </h2>
+
             <CustomerSuccessTimeline />
           </div>
         </section>
-        <EmotionalCTA />
+ {/* Emotional CTA */}
+ <EmotionalCTA />
+        {/* 3D Scroll Reveal */}
+        {/* <ScrollReveal />
+
+       */}
+
+
+
+      
+
+        {/* Creative Component */}
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <div className="grid gap-8 md:grid-cols-3">
@@ -274,8 +301,8 @@ export default function Home(): React.ReactElement {
             </div>
           </div>
         </section>
-
-       <section className="py-16 bg-[#f9f5f0]" id="features">
+  {/* Free Email Offer */}
+  <section className="py-16 bg-[#f9f5f0]" id="features">
           <div className="container mx-auto px-4">
             <div className="mx-auto max-w-3xl text-center">
               <h2 className="mb-6 text-3xl font-bold text-[#5a3d2b] md:text-4xl">Get 50 Free Woodworking Plans</h2>
@@ -312,7 +339,23 @@ export default function Home(): React.ReactElement {
           </div>
         </section>
 
-    
+        {/* 360° Product Preview */}
+        {/* <section className="py-16 bg-[#f9f5f0]">
+          <div className="container mx-auto px-4">
+            <h2 className="mb-6 text-center text-3xl font-bold text-[#5a3d2b] md:text-4xl">
+              Explore Our Plans in 360°
+            </h2>
+            <p className="mx-auto mb-12 max-w-2xl text-center text-[#5a3d2b]/80">
+              Get a complete view of our woodworking projects from every angle
+            </p>
+
+            <ProductViewer360 />
+          </div>
+        </section> */}
+
+        {/* About the Product */}
+      
+        {/* Personalized Plan Finder */}
         <section className="py-16 bg-[#f9f5f0]">
           <div className="container mx-auto px-4">
             <h2 className="mb-6 text-center text-3xl font-bold text-[#5a3d2b] md:text-4xl">
@@ -326,6 +369,7 @@ export default function Home(): React.ReactElement {
           </div>
         </section>
       
+        {/* Banner/TitleTextButton */}
         <section className="py-12 bg-[#d35400] text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="mb-4 text-3xl font-bold md:text-4xl">Limited Time Offer</h2>
@@ -340,13 +384,15 @@ export default function Home(): React.ReactElement {
             </Link>
           </div>
         </section>
+
+        {/* Social Proof Wall */}
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <SocialProofWall />
           </div>
         </section>
-
-        <section className="py-12 bg-[url('/retina_wood-main-bg.jpg')] bg-cover bg-center bg-[#8B4513]">
+  {/* Conversion Banner */}
+  <section className="py-12 bg-[url('/retina_wood-main-bg.jpg')] bg-cover bg-center bg-[#8B4513]">
           <div className="container mx-auto px-4 text-center">
             <h2 className="mb-6 text-3xl font-bold text-white md:text-4xl">Get Access To All 16,000 Plans Today</h2>
             <p className="mx-auto mb-8 max-w-2xl text-lg text-white/90">
@@ -356,9 +402,10 @@ export default function Home(): React.ReactElement {
             <Link href="https://orders.clickbank.net/?cbfid=13103&cbitems=8&corid=baa1eac4-0789-4867-9c02-e99d77ff5cdc&hopId=e52f7094-af3a-4a20-b745-8efd02dcb7ad&oaref=01.77DE3D3A119DF91E12ECE773763DD534AF522216987F20A8541FB804404292F5A5ADC7F6&template=20357&time=1742480124&vtid=tedplandiy&vvvv=tedsplans&vvar=cbfid%3D13103%26cbitems%3D8%26cbskin%3D20357%26vtid%3Dtedplandiy">
               <Button className="h-14 px-8 text-lg bg-[#d35400] hover:bg-[#a04000] text-white">Buy Now</Button>
             </Link>
+
           </div>
         </section>
-
+        {/* Product Info */}
         <section className="py-16 bg-[#f9f5f0]" id="plans">
           <div className="container mx-auto px-4">
             <h2 className="mb-12 text-center text-3xl font-bold text-[#5a3d2b] md:text-4xl">
@@ -374,6 +421,14 @@ export default function Home(): React.ReactElement {
           </div>
         </section>
 
+        {/* Workshop Registration */}
+        {/* <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <WorkshopRegistration />
+          </div>
+        </section> */}
+
+        {/* Second Creative Component */}
         <section className="py-16 bg-[#f9f5f0]">
           <div className="container mx-auto px-4">
             <div className="mx-auto max-w-3xl">
@@ -432,7 +487,10 @@ export default function Home(): React.ReactElement {
             </div>
           </div>
         </section>
-        
+
+       
+
+        {/* Closing Footer */}
         <section className="py-12 bg-[#5a3d2b] text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="mb-6 text-3xl font-bold md:text-4xl">Start Building Your Dream Projects Today</h2>
