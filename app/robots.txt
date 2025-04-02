@@ -1,6 +1,14 @@
-// app/robots.txt
+# app/robots.txt
 User-agent: *
-Disallow: /admin
 Allow: /
+Allow: /landinga
+Disallow: /landingb
+Disallow: /landingc
+
+# Permitir indexação de páginas principais
+Allow: /tedwoodworking
+Allow: /16000plans
+Allow: /about
+Allow: /video
 
 Sitemap: https://www.tedsplan.shop/sitemap.xml

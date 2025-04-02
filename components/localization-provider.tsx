@@ -1,85 +1,154 @@
-"use client"
+// components/localization-provider.tsx
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
+// Idiomas suportados
+type Locale = 'pt-BR' | 'en-US' | 'es-ES';
 
-type LocaleData = Record<string, any>
-type SupportedLocales = "pt-BR" | "en-US" | "es-ES"
+// Traduções
+type Translations = {
+  [key in Locale]: {
+    [key: string]: string;
+  }
+};
 
+// Contexto de localização
 interface LocalizationContextType {
-  locale: SupportedLocales
-  t: (path: string) => string
-  changeLocale: (newLocale: SupportedLocales) => Promise<void>
-  localeData: LocaleData
+  locale: Locale;
+  setLocale: (locale: Locale) => void;
+  t: (key: string) => string;
+  isRTL: boolean;
+  alternateUrls: Record<string, string>;
 }
 
-const LocalizationContext = createContext<LocalizationContextType | undefined>(undefined)
+const translations: Translations = {
+  'pt-BR': {
+    'common.home': 'Início',
+    'common.about': 'Sobre',
+    'common.contact': 'Contato',
+    'landing.title': 'TED Woodworking Plans - Projetos de Marcenaria Premium',
+    'landing.subtitle': 'Mais de 16.000 planos detalhados para todos os níveis',
+    'cta.getAccess': 'Obter Acesso',
+    'cta.learnMore': 'Saiba Mais',
+    // Adicione mais traduções conforme necessário
+  },
+  'en-US': {
+    'common.home': 'Home',
+    'common.about': 'About',
+    'common.contact': 'Contact',
+    'landing.title': 'TED Woodworking Plans - Premium Woodworking Projects',
+    'landing.subtitle': 'Over 16,000 detailed plans for all skill levels',
+    'cta.getAccess': 'Get Access',
+    'cta.learnMore': 'Learn More',
+    // Adicione mais traduções em inglês
+  },
+  'es-ES': {
+    'common.home': 'Inicio',
+    'common.about': 'Acerca de',
+    'common.contact': 'Contacto',
+    'landing.title': 'TED Woodworking Plans - Proyectos de Carpintería Premium',
+    'landing.subtitle': 'Más de 16.000 planes detallados para todos los niveles',
+    'cta.getAccess': 'Obtener Acceso',
+    'cta.learnMore': 'Saber Más',
+    // Adicione mais traduções em espanhol
+  }
+};
 
-export function useLocalization() {
-  const context = useContext(LocalizationContext)
+// Crie o contexto
+const LocalizationContext = createContext<LocalizationContextType | undefined>(undefined);
+
+// Hook personalizado para usar o contexto
+export const useLocalization = () => {
+  const context = useContext(LocalizationContext);
   if (context === undefined) {
-    throw new Error("useLocalization must be used within a LocalizationProvider")
+    throw new Error('useLocalization must be used within a LocalizationProvider');
   }
-  return context
-}
+  return context;
+};
 
-interface LocalizationProviderProps {
-  children: ReactNode
-  defaultLocale?: SupportedLocales
-}
-
-export function LocalizationProvider({ children, defaultLocale = "pt-BR" }: LocalizationProviderProps) {
-  const [locale, setLocale] = useState<SupportedLocales>(defaultLocale)
-  const [localeData, setLocaleData] = useState<LocaleData>({})
-  const [loading, setLoading] = useState(true)
-
+// Provedor de localização
+export const LocalizationProvider: React.FC<{
+  children: React.ReactNode;
+  defaultLocale?: Locale;
+}> = ({ children, defaultLocale = 'pt-BR' }) => {
+  const router = useRouter();
+  
+  // Use a rota para determinar o idioma inicial ou use o padrão
+  const getInitialLocale = (): Locale => {
+    // Verifica se estamos no navegador
+    if (typeof window !== 'undefined') {
+      // Verifica URL para prefixo de idioma
+      const pathname = window.location.pathname;
+      if (pathname.startsWith('/en')) return 'en-US';
+      if (pathname.startsWith('/es')) return 'es-ES';
+      
+      // Verifica localStorage para preferência salva
+      const savedLocale = localStorage.getItem('preferred-locale');
+      if (savedLocale === 'en-US' || savedLocale === 'pt-BR' || savedLocale === 'es-ES') {
+        return savedLocale;
+      }
+      
+      // Verifica o idioma do navegador
+      const browserLang = navigator.language;
+      if (browserLang.startsWith('en')) return 'en-US';
+      if (browserLang.startsWith('es')) return 'es-ES';
+    }
+    
+    // Retorna o idioma padrão
+    return defaultLocale;
+  };
+  
+  const [locale, setLocale] = useState<Locale>(defaultLocale);
+  
+  // Inicializa o idioma após a montagem do componente
   useEffect(() => {
-    loadLocaleData(locale)
-  }, [locale])
-
-  async function loadLocaleData(locale: SupportedLocales) {
-    setLoading(true)
-    try {
-      // In a real app, this would be a dynamic import or API call
-      const data = await import(`../localization/${locale}.json`)
-      setLocaleData(data)
-    } catch (error) {
-      console.error(`Failed to load locale data for ${locale}`, error)
-      // Fallback to default locale if the requested one fails
-      if (locale !== defaultLocale) {
-        loadLocaleData(defaultLocale)
-      }
-    } finally {
-      setLoading(false)
+    setLocale(getInitialLocale());
+  }, []);
+  
+  // Atualiza o localStorage quando o idioma muda
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('preferred-locale', locale);
     }
-  }
-
-  function getNestedValue(obj: any, path: string): string {
-    const keys = path.split(".")
-    let current = obj
-
-    for (const key of keys) {
-      if (current === undefined || current === null) {
-        return path // Return the path if we can't traverse further
-      }
-      current = current[key]
-    }
-
-    return current !== undefined && current !== null ? String(current) : path // Return the path if the value is undefined
-  }
-
-  const t = (path: string): string => {
-    if (loading) return path
-    return getNestedValue(localeData, path)
-  }
-
-  const changeLocale = async (newLocale: SupportedLocales) => {
-    setLocale(newLocale)
-  }
-
+  }, [locale]);
+  
+  // Função de tradução
+  const t = (key: string): string => {
+    return translations[locale][key] || key;
+  };
+  
+  // Verificação de idiomas RTL (direita para esquerda)
+  const isRTL = false; // Nenhum dos idiomas atuais é RTL, mas pode ser expandido no futuro
+  
+  // Gera URLs alternativas para uso em SEO
+  const currentPath = router?.asPath || '';
+  const pathWithoutLang = currentPath.replace(/^\/(en|es)/, '');
+  
+  const alternateUrls = {
+    'pt-BR': `https://www.tedsplan.shop${pathWithoutLang}`,
+    'en-US': `https://www.tedsplan.shop/en${pathWithoutLang}`,
+    'es-ES': `https://www.tedsplan.shop/es${pathWithoutLang}`,
+  };
+  
   return (
-    <LocalizationContext.Provider value={{ locale, t, changeLocale, localeData }}>
+    <LocalizationContext.Provider value={{ locale, setLocale, t, isRTL, alternateUrls }}>
       {children}
     </LocalizationContext.Provider>
-  )
-}
+  );
+};
 
+// Componente para inserir hrefLang tags para SEO
+export const HrefLangTags: React.FC = () => {
+  const { alternateUrls } = useLocalization();
+  
+  return (
+    <>
+      <link rel="alternate" hrefLang="pt-BR" href={alternateUrls['pt-BR']} />
+      <link rel="alternate" hrefLang="en-US" href={alternateUrls['en-US']} />
+      <link rel="alternate" hrefLang="es-ES" href={alternateUrls['es-ES']} />
+      <link rel="alternate" hrefLang="x-default" href={alternateUrls['pt-BR']} />
+    </>
+  );
+};
+
+export default LocalizationProvider;

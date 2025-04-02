@@ -1,8 +1,59 @@
 --app
+  --16000plans
+    -metadata.ts
+    -page.tsx
+  --about
+    -metadata.ts
+    -page.tsx
+  --api
+    -route.ts
+    --track
+      -route.ts
+  -backgrupPage.tsx
+  -ClientWrapper.tsx
+  -error.tsx
   -globals.css
+  --landinga
+    -globals.css
+    -layout.tsx
+    -page.tsx
+  --landingb
+    -globals.css
+    -layout.tsx
+    -page copy.tsx
+    -page.tsx
+  --landingc
+    -layout.tsx
+    -page.tsx
   -layout.tsx
+  -MetaTags.tsx
   -page.tsx
+  -robots.txt
+  -sitemap.xml.ts
+  --tedplan
+    -globals.css
+    -layout.tsx
+    -page copy.tsx
+    -page.tsx
+  --tedwood
+  --tedwoodworking
+    -metadata.ts
+    -page.tsx
+  --video
+    -metadata.ts
+    -page.tsx
+  --[landings]
 --components
+  --common
+    --conversion-components
+      -background-parallax.tsx
+      -feature-showcase.tsx
+      -testimonial-carousel.tsx
+      -trust-builder.tsx
+    --hero-section
+      -video-hero.tsx
+  -enhanced-footer.tsx
+  -enhanced-form.tsx
   --layout
     -3d-scroll-reveal.tsx
     -ai-woodworking-assistant.tsx
@@ -17,8 +68,12 @@
     -plan-slider.tsx
     -product-slider.tsx
     -product-viewer-360.tsx
+    -SEO.tsx
     -social-proof-wall.tsx
     -testimonial-slider.tsx
+  -localization-provider.tsx
+  --pages
+    -high-conversion-page.tsx
   -theme-provider.tsx
   --ui
     -accordion.tsx
@@ -71,12 +126,22 @@
     -tooltip.tsx
     -use-mobile.tsx
     -use-toast.ts
+  --ui-enhancements
+    -animated-counter.tsx
+    -countdown-timer.tsx
+    -feature-comparison.tsx
+    -floating-cta.tsx
+    -scroll-progress.tsx
 -components.json
+-fileTree.txt
 --hooks
   -use-mobile.tsx
   -use-toast.ts
 --lib
+  -facebook-meta.tsx
+  -google-tags.tsx
   -utils.ts
+-middleware.ts
 -next-env.d.ts
 -next.config.mjs
 -package-lock.json
@@ -180,13 +245,25 @@
   -videoinsta7.jpg
   -videoinsta8.jpg
   -videoinsta9.jpg
+  -videoplayback.mp4
   -wood-fail.jpg
-  -workbench-plans.jpg
-  -wprojects515.png
+  -wooden1.jpg
+  -wooden1.png
+  -wooden10.jpg
+  -wooden11.jpg
+  -wooden12.jpg
+  -wooden2.jpg
+  -wooden3.jpg
+  -wooden4.jpg
+  -wooden5.jpg
+  -wooden6.png
+  -wooden6.webp
+  -wooden7.jpg
+  -wooden8.jpg
+  -WOODEN9.jpg
+  -woodenseller.jpg
   -youtubethumbnail-v11-alt.png
 -README.md
---salvarcomponente
-  -workshop-registration.tsx
 -script.js
 --styles
   -globals.css

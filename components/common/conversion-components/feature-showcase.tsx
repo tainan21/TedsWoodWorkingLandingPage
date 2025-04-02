@@ -3,52 +3,52 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
-import { ChevronRight, BarChart3, Users, Zap, Globe, MessageSquare, LineChart } from "lucide-react"
+import { ChevronRight, BookOpen, Video, TrendingUp, DollarSign, Home, RefreshCw } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useLocalization } from "@/components/localization-provider"
 
 const features = [
   {
-    id: "analytics",
-    icon: <BarChart3 className="h-6 w-6" />,
-    title: "Análises Avançadas",
-    description: "Visualize o comportamento dos usuários e otimize suas páginas com dados em tempo real.",
-    image: "/placeholder.svg?height=600&width=800&text=Analytics+Dashboard",
+    id: "plans",
+    icon: <BookOpen className="h-6 w-6" />,
+    title: "Extensive Woodworking Plans",
+    description: "Access over 16,000 detailed woodworking blueprints for every skill level.",
+    image: "/wooden1.png",
   },
   {
-    id: "segmentation",
-    icon: <Users className="h-6 w-6" />,
-    title: "Segmentação Inteligente",
-    description: "Direcione suas mensagens para o público certo no momento certo.",
-    image: "/placeholder.svg?height=600&width=800&text=Segmentation+Tool",
+    id: "tutorials",
+    icon: <Video className="h-6 w-6" />,
+    title: "Step-by-Step Tutorials",
+    description: "Follow easy-to-understand tutorials that guide you through every project.",
+    image: "/wooden1.png",
   },
   {
-    id: "optimization",
-    icon: <Zap className="h-6 w-6" />,
-    title: "Otimização Automática",
-    description: "Nossos algoritmos ajustam suas páginas automaticamente para maximizar conversões.",
-    image: "/placeholder.svg?height=600&width=800&text=Optimization+Engine",
+    id: "guidance",
+    icon: <TrendingUp className="h-6 w-6" />,
+    title: "Beginner to Expert Guidance",
+    description: "Learn at your own pace and elevate your skills from basic to advanced techniques.",
+    image: "/wooden1.png",
   },
   {
-    id: "global",
-    icon: <Globe className="h-6 w-6" />,
-    title: "Alcance Global",
-    description: "Suporte a múltiplos idiomas e otimização para diferentes regiões.",
-    image: "/placeholder.svg?height=600&width=800&text=Global+Reach",
+    id: "efficiency",
+    icon: <DollarSign className="h-6 w-6" />,
+    title: "Cost & Time Efficiency",
+    description: "Avoid mistakes and save money with precise, foolproof plans.",
+    image: "/wooden1.png",
   },
   {
-    id: "chat",
-    icon: <MessageSquare className="h-6 w-6" />,
-    title: "Chat Inteligente",
-    description: "Interaja com seus visitantes em tempo real e aumente suas chances de conversão.",
-    image: "/placeholder.svg?height=600&width=800&text=Smart+Chat",
+    id: "creativity",
+    icon: <Home className="h-6 w-6" />,
+    title: "Creative Project Ideas",
+    description: "Build custom furniture, home decor, and outdoor structures with expert designs.",
+    image: "/wooden1.png",
   },
   {
-    id: "reporting",
-    icon: <LineChart className="h-6 w-6" />,
-    title: "Relatórios Detalhados",
-    description: "Acompanhe seu progresso com relatórios personalizados e insights acionáveis.",
-    image: "/placeholder.svg?height=600&width=800&text=Detailed+Reports",
+    id: "lifetime",
+    icon: <RefreshCw className="h-6 w-6" />,
+    title: "Lifetime Access & Updates",
+    description: "Enjoy unlimited access to courses and continuous updates for new ideas.",
+    image: "/wooden1.png",
   },
 ]
 
@@ -64,15 +64,15 @@ export function FeatureShowcase() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
           <div className="inline-block rounded-lg bg-gold-brown-500/20 px-3 py-1 text-sm text-gold-brown-300 border border-gold-brown-500/30 mb-4">
-            Recursos Exclusivos
+            DIY & Carpentry Courses
           </div>
           <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight mb-4">
             <span className="bg-gradient-to-r from-white to-gold-brown-300 bg-clip-text text-transparent">
-              Ferramentas poderosas para seu sucesso
+              Master Carpentry & Woodworking with Ted’s Woodworking
             </span>
           </h2>
           <p className="max-w-2xl mx-auto text-deep-blue-200">
-            Nossa plataforma oferece tudo o que você precisa para transformar visitantes em clientes fiéis.
+            Are you passionate about woodworking? Unlock your full potential with comprehensive, step-by-step guides and detailed plans to build your dream projects. Perfect for hobbyists, aspiring woodworkers, and professionals.
           </p>
         </div>
 
@@ -180,9 +180,9 @@ export function FeatureShowcase() {
             >
               <div className="flex items-center gap-2">
                 <div className="bg-green-500/20 p-1.5 rounded-full">
-                  <Zap className="h-4 w-4 text-green-500" />
+                  <Video className="h-4 w-4 text-green-500" />
                 </div>
-                <div className="text-sm font-medium text-white">Aumento de 200% em conversões</div>
+                <div className="text-sm font-medium text-white">Step-by-Step Guidance</div>
               </div>
             </motion.div>
 
@@ -195,9 +195,9 @@ export function FeatureShowcase() {
             >
               <div className="flex items-center gap-2">
                 <div className="bg-blue-500/20 p-1.5 rounded-full">
-                  <Users className="h-4 w-4 text-blue-500" />
+                  <TrendingUp className="h-4 w-4 text-blue-500" />
                 </div>
-                <div className="text-sm font-medium text-white">87.000+ usuários ativos</div>
+                <div className="text-sm font-medium text-white">Elevate Your Skills</div>
               </div>
             </motion.div>
           </div>
@@ -206,4 +206,6 @@ export function FeatureShowcase() {
     </section>
   )
 }
+
+
 

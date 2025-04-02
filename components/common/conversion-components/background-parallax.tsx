@@ -57,28 +57,29 @@ export function BackgroundParallaxSection() {
           className="max-w-3xl mx-auto"
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
-            Transforme sua{" "}
+            Turn Your Passion{" "}
             <span className="bg-gradient-to-r from-white to-gold-brown-300 bg-clip-text text-transparent">
-              estratégia digital
+              into Profit!
             </span>
           </h2>
           <p className="text-xl text-deep-blue-100 mb-8 max-w-2xl mx-auto">
-            Nossa plataforma oferece todas as ferramentas necessárias para aumentar suas conversões e impulsionar seus
-            resultados.
+            Ever thought about making money with your carpentry? Discover how thousands of people are creating amazing projects and turning DIY skills into a real extra income.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
               className="bg-gold-brown-500 hover:bg-gold-brown-600 text-deep-blue-900 font-medium group"
+              onClick={() => window.location.href = "/conversion"}
             >
-              Solicitar Demonstração
+              I Want to Start Now!
             </Button>
             <Button
               size="lg"
               variant="outline"
               className="border-gold-brown-500/50 text-white hover:bg-deep-blue-800 hover:text-gold-brown-300"
+              onClick={() => window.location.href = "/conversion"}
             >
-              Ver Casos de Sucesso
+              See Successful Projects
             </Button>
           </div>
         </motion.div>
@@ -113,4 +114,3 @@ export function BackgroundParallaxSection() {
     </section>
   )
 }
-
