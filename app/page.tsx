@@ -1,4 +1,4 @@
-// app/page.tsx
+// filepath: c:\Apps\DASHPRO\TedsWoodWorkingLandingPage\app\page.tsx
 'use client';
 
 import { useEffect } from 'react';
@@ -8,13 +8,13 @@ import { useABTest } from '@/lib/abtest/ABTestContext';
 export default function HomePage() {
   const router = useRouter();
   const { currentVariant, isLoading } = useABTest();
-  
+
   useEffect(() => {
     if (!isLoading) {
       router.push(`/${currentVariant}`);
     }
   }, [currentVariant, router, isLoading]);
-  
+
   return (
     <div className="flex items-center justify-center min-h-screen">
       <div className="text-center">

@@ -11,10 +11,12 @@ import Image from "next/image"
 import Link from "next/link"
 
 // Componente de animação para elementos que aparecem durante o scroll
-const AnimateOnScroll = ({ children, className = "", delay = 0, ...props }) => {
+import { ReactNode } from "react";
+
+const AnimateOnScroll = ({ children, className = "", delay = 0, ...props }: { children: ReactNode; className?: string; delay?: number; [key: string]: any }) => {
   const controls = useAnimation()
   const ref = useRef(null)
-  const inView = useInView(ref, { once: true, threshold: 0.1 })
+  const inView = useInView(ref, { once: true })
 
   useEffect(() => {
     if (inView) {
@@ -47,8 +49,8 @@ const AnimateOnScroll = ({ children, className = "", delay = 0, ...props }) => {
   )
 }
 
-// Componente de CTA com efeito de hover
-const CtaButton = ({ children, className = "", ...props }) => {
+
+const CtaButton = ({ children, className = "", ...props }: { children: ReactNode; className?: string; [key: string]: any }) => {
   return (
     <Button className={`cta-button ${className}`} {...props}>
       {children}

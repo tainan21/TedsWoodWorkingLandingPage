@@ -55,7 +55,7 @@ export const ABTestProvider = ({ children }: { children: ReactNode }) => {
       .then(res => res.json())
       .catch(() => initialStats)
       .then(data => {
-        const stats = data?.conversionRates || initialStats.conversionRates;
+        const stats = (data?.conversionRates || initialStats.conversionRates) as Record<LandingVariant, number>;
         
         // Determina a variante para o usuário
         const existingVariant = Cookies.get(COOKIE_NAME) as LandingVariant | undefined;
@@ -74,8 +74,10 @@ export const ABTestProvider = ({ children }: { children: ReactNode }) => {
             selectedVariant = VARIANTS[randomIndex];
           } else {
             // Exploração: escolhe a melhor variante
-            selectedVariant = Object.entries(stats)
-              .sort((a, b) => b[1] - a[1])[0][0] as LandingVariant;
+   
+              selectedVariant = (Object.entries(stats) as [LandingVariant, number][])
+          .sort((a, b) => b[1] - a[1])[0][0];
+
           }
           
           setCurrentVariant(selectedVariant);

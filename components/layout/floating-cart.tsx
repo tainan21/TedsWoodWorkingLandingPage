@@ -71,9 +71,9 @@ export default function FloatingCart() {
   return (
     <motion.div
       className="fixed bottom-8 left-8 z-40"
-      animate={controls}
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{
+        ...controls,
         opacity: isVisible ? 1 : 0,
         scale: isVisible ? 1 : 0.8,
       }}

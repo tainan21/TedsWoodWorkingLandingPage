@@ -1,7 +1,10 @@
+'use client'
 // components/layout/SEO.tsx
 import React from 'react';
 import { NextSeo, ArticleJsonLd, ProductJsonLd, FAQPageJsonLd } from 'next-seo';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
+
+
 
 interface SEOProps {
   title?: string;
@@ -62,10 +65,10 @@ export const SEO: React.FC<SEOProps> = ({
   articleData,
   faqData,
 }) => {
-  const router = useRouter();
-  const path = router.asPath;
+  const path = usePathname(); // Substitui o uso de useRouter
   const finalCanonical = canonical || `https://www.tedsplan.shop${path}`;
-  
+
+
   // Configurações específicas para variantes de landing
   const variantSpecificMeta = () => {
     switch (landingVariant) {
