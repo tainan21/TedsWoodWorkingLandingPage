@@ -7,7 +7,7 @@ const nextConfig = {
   poweredByHeader: false, 
   compress: true, 
   swcMinify: true, 
-
+  output: 'standalone', //
   images: {
     domains: ['www.tedsplan.shop'],
     formats: ['image/avif', 'image/webp'],

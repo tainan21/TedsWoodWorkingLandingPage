@@ -118,10 +118,14 @@ export const metadata: Metadata = {
     creator: '@tedwoodworking',
     images: ['https://www.tedsplan.shop/twitter-image.jpg'],
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+    other: {
+      rel: 'apple-touch-icon-precomposed',
+      url: '/apple-touch-icon.png',
+    },
   },
   verification: {
     google: 'google-site-verification-code',
@@ -132,6 +136,7 @@ export const metadata: Metadata = {
   },
   category: 'Marcenaria',
 };
+export const viewport = { width: 'device-width', initialScale: 1 };
 
 export default function RootLayout({
   children,

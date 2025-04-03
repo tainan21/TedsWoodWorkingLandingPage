@@ -1,4 +1,3 @@
-import type { Metadata } from 'next';
 import Link from "next/link"
 import Image from "next/image"
 import { Star, Play, Check, ArrowRight } from "lucide-react"
@@ -22,27 +21,8 @@ import FloatingCart from "@/components/layout/floating-cart"
 import EmotionalCTA from "@/components/layout/emotional-cta"
 
 
-export const metadata: Metadata = {
-  title: 'Teds Wood Working',
-  description: 'Explore DIY woodworking plans, projects, and tools with Teds Wood Working.',
-  generator: 'TedsWoodWorking.com',
-  openGraph: {
-    title: 'Teds Wood Working - 16 plans',
-    description: 'Explore DIY woodworking plans, projects, and tools with Teds Wood Working.',
-    url: 'https://www.tedsplan.shop/',
-    siteName: 'Teds Wood Working',
-    locale: 'pt_BR',
-    type: 'website'
-  },
-  keywords: [
-    'Teds Wood Working',
-    'DIY Wood Working Plans',
-    'Wood Working Projects',
-    'Wood Working Tools',
-  ].join(', '),
-};
 
-export default function Home(): React.ReactElement {
+export default function LandingC(): React.ReactElement {
   
   return (
       <div className="flex min-h-screen flex-col bg-[#f9f5f0]">

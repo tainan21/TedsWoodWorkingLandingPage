@@ -1,0 +1,48 @@
+opa, nós estavamos aqui, my project:
+
+@ crio o SEO ou ja uso no meta tags? pode implementar?
+
+altere os textos para o conteudo da ted, tbm me explique uma coisa, pra usar o maximo do seo onde coloco outas infos? ou ai ja tem tudo?
+
+na minah estrutura tbm tenho
+
+landinga/page.tsx landingb/page.tsx landingc/page.tsx
+
+devo implementar layout ou as tags em cada rota?
+
+--app --16000plans -metadata.ts -page.tsx --about -metadata.ts -page.tsx --api -route.ts --track -route.ts -backgrupPage.tsx -ClientWrapper.tsx -error.tsx -globals.css --landinga -globals.css -layout.tsx -page.tsx --landingb -globals.css -layout.tsx -page copy.tsx -page.tsx --landingc -layout.tsx -page.tsx -layout.tsx -MetaTags.tsx -page.tsx -robots.txt -sitemap.xml.ts --tedplan -globals.css -layout.tsx -page copy.tsx -page.tsx --tedwood --tedwoodworking -metadata.ts -page.tsx --video -metadata.ts -page.tsx --[landings] --components --common --conversion-components -background-parallax.tsx -feature-showcase.tsx -testimonial-carousel.tsx -trust-builder.tsx --hero-section -video-hero.tsx -enhanced-footer.tsx -enhanced-form.tsx --layout -3d-scroll-reveal.tsx -ai-woodworking-assistant.tsx -before-after-cards.tsx -countdown-timer.tsx -customer-success-timeline.tsx -dynamic-showcase-grid.tsx -emotional-cta.tsx -floating-cart.tsx -floating-guarantee.tsx -plan-finder-quiz.tsx -plan-slider.tsx -product-slider.tsx -product-viewer-360.tsx -SEO.tsx -social-proof-wall.tsx -testimonial-slider.tsx -localization-provider.tsx --pages -high-conversion-page.tsx -theme-provider.tsx --ui -accordion.tsx -alert-dialog.tsx -alert.tsx -aspect-ratio.tsx -avatar.tsx -badge.tsx -breadcrumb.tsx -button.tsx -calendar.tsx -card.tsx -carousel.tsx -chart.tsx -checkbox.tsx -collapsible.tsx -command.tsx -context-menu.tsx -dialog.tsx -drawer.tsx -dropdown-menu.tsx -form.tsx -hover-card.tsx -input-otp.tsx -input.tsx -label.tsx -menubar.tsx -navigation-menu.tsx -pagination.tsx -popover.tsx -progress.tsx -radio-group.tsx -resizable.tsx -scroll-area.tsx -select.tsx -separator.tsx -sheet.tsx -sidebar.tsx -skeleton.tsx -slider.tsx -sonner.tsx -switch.tsx -table.tsx -tabs.tsx -textarea.tsx -toast.tsx -toaster.tsx -toggle-group.tsx -toggle.tsx -tooltip.tsx -use-mobile.tsx -use-toast.ts --ui-enhancements -animated-counter.tsx -countdown-timer.tsx -feature-comparison.tsx -floating-cta.tsx -scroll-progress.tsx -components.json -fileTree.txt --hooks -use-mobile.tsx -use-toast.ts --lib -facebook-meta.tsx -google-tags.tsx -utils.ts -middleware.ts -next-env.d.ts -next.config.mjs -package-lock.json -package.json -pnpm-lock.yaml -postcss.config.mjs --public -README.md -script.js --styles -globals.css -tailwind.config.ts -tsconfig.json
+
+Obs: ainda não implementei nada que me passou, farei tudo agora que te passei a estrutura completa,
+
+tenho analise do google, vercel e pixel, agr o hotjar, tbm tenho landings diferentes para publicos diferentes, o SEO pode ser o mesmo, mas queria uma estrutura que variasse e saisse no sitemap e robots, para pegar uma pontuação melhor em diferentes textos no google
+
+e depois de gerar 10 codigos essenciais, parou no 11 que era: 
+
+// next.config.mjs import { withSentryConfig } from '@sentry/nextjs'; /** @type {import('next').NextConfig} / const nextConfig = { reactStrictMode: true, poweredByHeader: false, // Remove o cabeçalho X-Powered-By para segurança compress: true, // Compressão para melhor performance images: { domains: ['www.tedsplan.shop'], formats: ['image/avif', 'image/webp'], }, experimental: { optimizeCss: true, // CSS otimizado para melhor performance scrollRestoration: true, // Melhora a experiência de navegação }, async headers() { return [ { source: '/(.)', headers: [ { key: 'X-DNS-Prefetch-Control', value: 'on', }, { key: 'Strict-Transport-Security', value: 'max-age=63
+
+codigos ja realizados:
+
+1
+Implementação do SEO
+Vamos melhorá-lo para suportar as diferentes landing pages e maximizar o SEO:
+2
+Componente Hotjar
+3
+Contexto para A/B Testing
+4
+API para tracking e estatísticas
+5
+Banner para usuários recorrentes
+6
+Agora para implementar nas suas landing pages existentes:
+7
+Atualização do layout principal
+8
+Página principal para redirecionamento inteligente
+9
+Atualização do sitemap.xml para incluir as variantes
+10
+Atualização do robots.txt para controlar a indexação
+11
+Configuração para otimização de SEO 100/100
+Você pode escrever Continuar para prosseguir com o chat.O Claude pode cometer erros

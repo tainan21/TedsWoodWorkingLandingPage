@@ -1,6 +1,6 @@
 // MetaTags.tsx
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 
 interface MetaTagsProps {
   title?: string;
@@ -39,9 +39,9 @@ export default function MetaTags({
   locale = 'pt-BR',
   alternateUrls = {},
 }: MetaTagsProps) {
-  const router = useRouter();
-  const currentUrl = ogUrl || `https://www.tedsplan.shop${router.asPath}`;
-  const actualCanonicalUrl = canonicalUrl || currentUrl;
+  const path = usePathname(); // Substitui o uso de useRouter
+  const currentUrl = ogUrl || `https://www.tedsplan.shop${path}`;
+  const finalCanonical = canonicalUrl || currentUrl;
 
   // Schema.org padrão para produto
   const defaultSchema = {
@@ -74,9 +74,9 @@ export default function MetaTags({
       <meta name="keywords" content={keywords} />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       {noindex && <meta name="robots" content="noindex, nofollow" />}
-      <link rel="canonical" href={actualCanonicalUrl} />
+      <link rel="canonical" href={finalCanonical} />
       <meta name="theme-color" content="#4a7c59" />
-      
+
       {/* Open Graph / Facebook */}
       <meta property="og:type" content="website" />
       <meta property="og:url" content={currentUrl} />
@@ -85,19 +85,19 @@ export default function MetaTags({
       <meta property="og:image" content={ogImage} />
       <meta property="og:locale" content={locale} />
       <meta property="og:site_name" content="TED Plans" />
-      
+
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:url" content={currentUrl} />
       <meta name="twitter:title" content={twitterTitle || ogTitle || title} />
       <meta name="twitter:description" content={twitterDescription || ogDescription || description} />
       <meta name="twitter:image" content={twitterImage || ogImage} />
-      
+
       {/* Links alternativos para diferentes idiomas/versões */}
       {Object.entries(alternateUrls).map(([lang, url]) => (
         <link key={lang} rel="alternate" hrefLang={lang} href={url} />
       ))}
-      
+
       {/* Schema.org JSON-LD */}
       {finalSchemaData.map((schema, index) => (
         <script
