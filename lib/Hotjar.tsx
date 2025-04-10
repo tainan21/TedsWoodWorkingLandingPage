@@ -3,7 +3,7 @@
 
 import Script from 'next/script';
 
-const HOTJAR_WEBSITE_ID = ""; // Substitua pelo seu ID real
+// const HOTJAR_WEBSITE_ID = ""; // Substitua pelo seu ID real
 
 export default function Hotjar() {
   return (

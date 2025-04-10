@@ -6,6 +6,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   
   const routes = [
     '',
+    '/woodworkinga',
+    '/woodworkingb',
+    '/woodworkingc',
+    '/woodworkingvideo',
     '/tedwoodworking',
     '/16000plans',
     '/about',
@@ -15,7 +19,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   
   // Landing pages para A/B testing (apenas variante A é indexável)
   const landingPages = [
-    '/landinga'
+    '/woodworkinga',
+    '/woodworkingb',
+    '/woodworkingc',
+    '/woodworkingvideo',
     // Não incluir variantes B e C para evitar conteúdo duplicado
   ];
   

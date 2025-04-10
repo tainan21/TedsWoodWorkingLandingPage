@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { v4 as uuidv4 } from 'uuid';
 
-export type LandingVariant = 'landinga' | 'landingb' | 'landingc' | 'landingx';
+export type LandingVariant = 'woodworkinga' | 'woodworkingb' | 'woodworkingc' | 'woodworkingvideo';
 export type ConversionEvent = 'click' | 'signup' | 'purchase';
 
 type ABTestContextType = {
@@ -18,13 +18,16 @@ type ABTestContextType = {
 
 const ABTestContext = createContext<ABTestContextType | undefined>(undefined);
 
-const VARIANTS: LandingVariant[] = ['landinga', 'landingb', 'landingc', 'landingx'];
+const VARIANTS: LandingVariant[] = ['woodworkinga', 'woodworkingb', 'woodworkingc', 'woodworkingvideo'];
 const VARIANT_COOKIE_NAME = 'ted_landing_variant';
 const SESSION_COOKIE_NAME = 'ted_session_id';
 const COOKIE_EXPIRY_DAYS = 30;
 
 export const ABTestProvider = ({ children }: { children: ReactNode }) => {
-  const [currentVariant, setCurrentVariant] = useState<LandingVariant>('landinga');
+  const [currentVariant, setCurrentVariant] = useState<LandingVariant>(() => {
+    const randomIndex = Math.floor(Math.random() * VARIANTS.length);
+    return VARIANTS[randomIndex];
+  });
   const [isLoading, setIsLoading] = useState(true);
   const pathname = usePathname();
   const router = useRouter();

@@ -1,10 +1,13 @@
 # app/robots.txt
 User-agent: *
 Allow: /
-Allow: /landinga
-Disallow: /landingb
-Disallow: /landingc
+Allow: /woodworkinga
+Allow: /woodworkingb
+Allow: /woodworkingc
+Allow: /woodworkingvideo
 
+Disallow: 
+Disallow: 
 # Permitir indexação de páginas principais
 Allow: /tedwoodworking
 Allow: /16000plans
