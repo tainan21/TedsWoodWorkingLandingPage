@@ -47,13 +47,10 @@ export default function LandingA() {
       <ScrollProgress />
       <FloatingCTA />
 
-      {/* New Hero Section with Video */}
       <VideoHero />
 
-      {/* Trust Builder CTA (no buttons) */}
       <TrustBuilder />
 
-      {/* New Components */}
       <div className="py-16 bg-deep-blue-950">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -80,7 +77,7 @@ export default function LandingA() {
       <FeatureShowcase />
       <TestimonialCarousel />
 
-      <div className="py-16 bg-deep-blue-900">
+      {/* <div className="py-16 bg-deep-blue-900">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">Get Personalized Project Recommendations</h2>
@@ -92,7 +89,7 @@ export default function LandingA() {
 
           <EnhancedForm />
         </div>
-      </div>
+      </div> */}
 
       {/* New Footer */}
       <EnhancedFooter />

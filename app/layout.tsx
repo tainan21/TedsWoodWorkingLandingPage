@@ -138,91 +138,85 @@ export const metadata: Metadata = {
 };
 export const viewport = { width: 'device-width', initialScale: 1 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode; // Certifique-se de que o tipo está correto
-}) {
-  // Gerar Schema.org JSON-LD
-  const organizationSchema = generateOrganizationSchema();
+export default function RootLayout({ children }: { children: React.ReactNode; }) {
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Ted Woodworking",
+    "url": "https://www.tedsplan.shop",
+    "logo": "https://www.tedsplan.shop/logo.png",
+    "sameAs": [
+      "https://www.facebook.com/tedwoodworking",
+      "https://www.instagram.com/tedwoodworking",
+      "https://www.youtube.com/tedwoodworking"
+    ],
+    "description": "Acesse mais de 16.000 planos de marcenaria detalhados para todos os níveis.",
+    "foundingDate": "2010",
+    "email": "support@tedsplan.shop",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-000-000-0000",
+      "contactType": "customer service",
+      "availableLanguage": ["English", "Portuguese", "Spanish"]
+    }
+  };
 
 
   return (
     <html lang="pt-BR" className={`${inter.variable} ${inter.className}`}>
       <head>
-        {/* JSON-LD para Rich Snippets nos resultados de busca */}
         <Script
           id="organization-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
-        
-        {/* Preload de recursos críticos */}
-        <link
-          rel="preload"
-          href="/images/hero-image.webp"
-          as="image"
-          type="image/webp"
-        />
-        
-        {/* Hints de preconexão para domínios externos */}
+        <link rel="preload" href="/images/hero-image.webp" as="image" type="image/webp" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
-        
-        {/* Favicons otimizados */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
-        
-        {/* Seus componentes personalizados */}
         <MetaPixel />
         <Hotjar />
       </head>
       <body className="bg-gray-100 text-gray-900">
         <ABTestProvider>
-        <Suspense fallback={<div className="min-h-screen bg-background" />}>
+          <Suspense fallback={<div className="min-h-screen bg-background" />}>
             {children}
           </Suspense>
-          {/* Outros compone
-          {/* Analytics e rastreamento */}
-          <GoogleTagManager gtmId="GTM-N2BJVRCH" />
-          <GoogleAnalytics gaId="GTM-WPP7FB2C" />
-          <SpeedInsights />
-          <Analytics />
-          
-          {/* Script para lazy loading de imagens */}
-          <Script
-            id="lazy-loading-script"
-            strategy="lazyOnload"
-          >
-            {`
-              document.addEventListener('DOMContentLoaded', function() {
-                if ('IntersectionObserver' in window) {
-                  const lazyImages = document.querySelectorAll('img.lazy');
-                  const imageObserver = new IntersectionObserver(function(entries, observer) {
-                    entries.forEach(function(entry) {
-                      if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.dataset.src;
-                        if (img.dataset.srcset) {
-                          img.srcset = img.dataset.srcset;
-                        }
-                        img.classList.remove('lazy');
-                        imageObserver.unobserve(img);
-                      }
-                    });
-                  });
-                  
-                  lazyImages.forEach(function(image) {
-                    imageObserver.observe(image);
-                  });
-                }
-              });
-            `}
-          </Script>
         </ABTestProvider>
+        <GoogleTagManager gtmId="GTM-N2BJVRCH" />
+        <GoogleAnalytics gaId="GTM-WPP7FB2C" />
+        <SpeedInsights />
+        <Analytics />
+        <Script id="lazy-loading-script" strategy="lazyOnload">
+          {`
+            document.addEventListener('DOMContentLoaded', function() {
+              if ('IntersectionObserver' in window) {
+                const lazyImages = document.querySelectorAll('img.lazy');
+                const imageObserver = new IntersectionObserver(function(entries, observer) {
+                  entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                      const img = entry.target;
+                      img.src = img.dataset.src;
+                      if (img.dataset.srcset) {
+                        img.srcset = img.dataset.srcset;
+                      }
+                      img.classList.remove('lazy');
+                      imageObserver.unobserve(img);
+                    }
+                  });
+                });
+                
+                lazyImages.forEach(function(image) {
+                  imageObserver.observe(image);
+                });
+              }
+            });
+          `}
+        </Script>
       </body>
     </html>
   );

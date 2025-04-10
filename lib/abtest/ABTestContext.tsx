@@ -4,33 +4,24 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
+import { v4 as uuidv4 } from 'uuid';
 
-// Tipos para o teste A/B
-export type LandingVariant = 'landinga' | 'landingb' | 'landingc';
+export type LandingVariant = 'landinga' | 'landingb' | 'landingc' | 'landingx';
 export type ConversionEvent = 'click' | 'signup' | 'purchase';
 
 type ABTestContextType = {
   currentVariant: LandingVariant;
   trackConversion: (event: ConversionEvent) => void;
-  setNewVariantForReturningUser: () => void;
+  rotateVariantForReturningUser: () => void;
   isLoading: boolean;
 };
 
 const ABTestContext = createContext<ABTestContextType | undefined>(undefined);
 
-// Configurações das variantes
-const VARIANTS: LandingVariant[] = ['landinga', 'landingb', 'landingc'];
-const COOKIE_NAME = 'teds_landing_variant';
-const COOKIE_EXPIRY = 30; // dias
-
-// Estatísticas iniciais (serão atualizadas com dados reais)
-const initialStats = {
-  conversionRates: {
-    landinga: 0.05, // 5% de conversão inicial estimada
-    landingb: 0.07, // 7% de conversão inicial estimada
-    landingc: 0.03  // 3% de conversão inicial estimada
-  }
-};
+const VARIANTS: LandingVariant[] = ['landinga', 'landingb', 'landingc', 'landingx'];
+const VARIANT_COOKIE_NAME = 'ted_landing_variant';
+const SESSION_COOKIE_NAME = 'ted_session_id';
+const COOKIE_EXPIRY_DAYS = 30;
 
 export const ABTestProvider = ({ children }: { children: ReactNode }) => {
   const [currentVariant, setCurrentVariant] = useState<LandingVariant>('landinga');
@@ -38,60 +29,60 @@ export const ABTestProvider = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
   const router = useRouter();
 
+  const trackPageView = (variant: LandingVariant) => {
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'pageview',
+        variant,
+        timestamp: new Date().toISOString(),
+        referrer: document.referrer || 'direct',
+      }),
+    }).catch((err) => console.error('Error tracking page view:', err));
+  };
+
+  // Initialize session with a unique ID
+  const initializeSession = () => {
+    if (!Cookies.get(SESSION_COOKIE_NAME)) {
+      const sessionId = uuidv4();
+      Cookies.set(SESSION_COOKIE_NAME, sessionId, { expires: COOKIE_EXPIRY_DAYS });
+    }
+  };
+
   useEffect(() => {
-    // Se já estamos em uma landing page específica, respeitar isso
+    initializeSession();
+
+    // Check if the URL already specifies a landing page
     if (pathname) {
       const currentPath = pathname.replace('/', '');
       if (VARIANTS.includes(currentPath as LandingVariant)) {
         setCurrentVariant(currentPath as LandingVariant);
-        Cookies.set(COOKIE_NAME, currentPath, { expires: COOKIE_EXPIRY });
+        Cookies.set(VARIANT_COOKIE_NAME, currentPath, { expires: COOKIE_EXPIRY_DAYS });
         setIsLoading(false);
+        trackPageView(currentPath as LandingVariant);
         return;
       }
     }
 
-    // Tenta buscar dados de conversão atualizados
-    fetch('/api/track/stats')
-      .then(res => res.json())
-      .catch(() => initialStats)
-      .then(data => {
-        const stats = (data?.conversionRates || initialStats.conversionRates) as Record<LandingVariant, number>;
-        
-        // Determina a variante para o usuário
-        const existingVariant = Cookies.get(COOKIE_NAME) as LandingVariant | undefined;
-        
-        if (existingVariant && VARIANTS.includes(existingVariant)) {
-          // Usuário recorrente: mantém a variante salva
-          setCurrentVariant(existingVariant);
-        } else {
-          // Novo usuário: implementação epsilon-greedy
-          const epsilon = 0.1; // 10% para exploração
-          let selectedVariant: LandingVariant;
-          
-          if (Math.random() < epsilon) {
-            // Exploração: escolhe aleatoriamente
-            const randomIndex = Math.floor(Math.random() * VARIANTS.length);
-            selectedVariant = VARIANTS[randomIndex];
-          } else {
-            // Exploração: escolhe a melhor variante
-   
-              selectedVariant = (Object.entries(stats) as [LandingVariant, number][])
-          .sort((a, b) => b[1] - a[1])[0][0];
+    // Use the stored variant if it exists
+    const existingVariant = Cookies.get(VARIANT_COOKIE_NAME) as LandingVariant | undefined;
+    if (existingVariant && VARIANTS.includes(existingVariant)) {
+      setCurrentVariant(existingVariant);
+      setIsLoading(false);
+      trackPageView(existingVariant);
+      return;
+    }
 
-          }
-          
-          setCurrentVariant(selectedVariant);
-          Cookies.set(COOKIE_NAME, selectedVariant, { expires: COOKIE_EXPIRY });
-        }
-        
-        setIsLoading(false);
-        
-        // Registra visualização
-        trackPageView(currentVariant);
-      });
+    // Randomly select a variant for new users
+    const randomIndex = Math.floor(Math.random() * VARIANTS.length);
+    const selectedVariant = VARIANTS[randomIndex];
+    setCurrentVariant(selectedVariant);
+    Cookies.set(VARIANT_COOKIE_NAME, selectedVariant, { expires: COOKIE_EXPIRY_DAYS });
+    setIsLoading(false);
+    trackPageView(selectedVariant);
   }, [pathname]);
 
-  // Função para registrar conversão
   const trackConversion = (event: ConversionEvent) => {
     fetch('/api/track', {
       method: 'POST',
@@ -100,61 +91,39 @@ export const ABTestProvider = ({ children }: { children: ReactNode }) => {
         type: 'conversion',
         event,
         variant: currentVariant,
-        timestamp: new Date().toISOString()
-      })
-    }).catch(err => console.error('Erro ao registrar conversão:', err));
+        timestamp: new Date().toISOString(),
+      }),
+    }).catch((err) => console.error('Error tracking conversion:', err));
   };
 
-  // Função para registrar visualização
-  const trackPageView = (variant: LandingVariant) => {
-    fetch('/api/track', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        type: 'pageview',
-        variant,
-        timestamp: new Date().toISOString()
-      })
-    }).catch(err => console.error('Erro ao registrar visualização:', err));
-  };
-
-  // Função para mostrar uma nova variante para usuários recorrentes
-  const setNewVariantForReturningUser = () => {
-    // Filtra para não mostrar a mesma variante
-    const availableVariants = VARIANTS.filter(v => v !== currentVariant);
-    
-    // Escolhe aleatoriamente entre as variantes disponíveis
+  const rotateVariantForReturningUser = () => {
+    const availableVariants = VARIANTS.filter((v) => v !== currentVariant);
     const randomIndex = Math.floor(Math.random() * availableVariants.length);
     const newVariant = availableVariants[randomIndex];
-    
-    // Atualiza o cookie e o estado
-    Cookies.set(COOKIE_NAME, newVariant, { expires: COOKIE_EXPIRY });
+    Cookies.set(VARIANT_COOKIE_NAME, newVariant, { expires: COOKIE_EXPIRY_DAYS });
     setCurrentVariant(newVariant);
-    
-    // Redireciona para a nova variante
     router.push(`/${newVariant}`);
-    
-    // Registra visualização da nova variante
     trackPageView(newVariant);
   };
 
   return (
-    <ABTestContext.Provider value={{
-      currentVariant,
-      trackConversion,
-      setNewVariantForReturningUser,
-      isLoading
-    }}>
+    <ABTestContext.Provider
+      value={{
+        currentVariant,
+        trackConversion,
+        rotateVariantForReturningUser,
+        isLoading,
+      }}
+    >
       {children}
     </ABTestContext.Provider>
   );
 };
 
-// Hook para usar o contexto
 export const useABTest = () => {
   const context = useContext(ABTestContext);
   if (context === undefined) {
-    throw new Error('useABTest deve ser usado dentro de um ABTestProvider');
+    throw new Error('useABTest must be used within an ABTestProvider');
   }
   return context;
 };

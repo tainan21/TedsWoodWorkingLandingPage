@@ -1,14 +1,22 @@
 --app
   --16000plans
-    -metadata.ts
+    --export-data
+    -layout.tsx
     -page.tsx
   --about
-    -metadata.ts
+    -layout.tsx
     -page.tsx
   --api
-    -route.ts
+    --export-data
+      -route.ts
+    --export-session
+      -route.ts
+    --sync-session
+      -route.ts
     --track
       -route.ts
+      --stats
+        -route.ts
   -backgrupPage.tsx
   -ClientWrapper.tsx
   -error.tsx
@@ -17,32 +25,33 @@
     -globals.css
     -layout.tsx
     -page.tsx
+    -pagebackup.tsx
   --landingb
     -globals.css
     -layout.tsx
-    -page copy.tsx
     -page.tsx
+    -pagecopy.tsx
   --landingc
+    -globals.css
     -layout.tsx
     -page.tsx
   -layout.tsx
   -MetaTags.tsx
+  -middleware.ts
   -page.tsx
+  -pagecopy.tsx
   -robots.txt
   -sitemap.xml.ts
   --tedplan
     -globals.css
     -layout.tsx
-    -page copy.tsx
     -page.tsx
-  --tedwood
+    -pagecopy.tsx
   --tedwoodworking
-    -metadata.ts
+    -layout.tsx
     -page.tsx
-  --video
-    -metadata.ts
+  --[slug]
     -page.tsx
-  --[landings]
 --components
   --common
     --conversion-components
@@ -52,6 +61,7 @@
       -trust-builder.tsx
     --hero-section
       -video-hero.tsx
+    -ReturningUserBanner.tsx
   -enhanced-footer.tsx
   -enhanced-form.tsx
   --layout
@@ -61,6 +71,7 @@
     -countdown-timer.tsx
     -customer-success-timeline.tsx
     -dynamic-showcase-grid.tsx
+    -DynamicLayout.tsx
     -emotional-cta.tsx
     -floating-cart.tsx
     -floating-guarantee.tsx
@@ -69,12 +80,16 @@
     -product-slider.tsx
     -product-viewer-360.tsx
     -SEO.tsx
+    -SEOv2.tsx
     -social-proof-wall.tsx
     -testimonial-slider.tsx
   -localization-provider.tsx
   --pages
     -high-conversion-page.tsx
+    -landingA.tsx
   -theme-provider.tsx
+  --tracking
+    -TrackingScript.tsx
   --ui
     -accordion.tsx
     -alert-dialog.tsx
@@ -131,27 +146,161 @@
     -countdown-timer.tsx
     -feature-comparison.tsx
     -floating-cta.tsx
+    -Hotjar.tsx
+    -ReturningUserBanner.tsx
     -scroll-progress.tsx
 -components.json
+--data
+  -abtest-stats.json
+  --content
+    -landing-variants.json
+    -products.json
+  --tracking
+    -events.json
+  --users
+    -sessions.json
 -fileTree.txt
 --hooks
+  -use-hotmar.tsx
   -use-mobile.tsx
   -use-toast.ts
 --lib
+  --abtest
+    -ABTestContext.tsx
+  --contexts
+    -UserInterfaceContext.tsx
   -facebook-meta.tsx
   -google-tags.tsx
+  -landing-seo-config.ts
+  -schema-generator.ts
   -utils.ts
--middleware.ts
 -next-env.d.ts
 -next.config.mjs
--package-lock.json
+-Opa, poderia me ajudar a ajustar o layou.txt
 -package.json
 -pnpm-lock.yaml
 -postcss.config.mjs
 --public
+  -150woodworking-videos.jpg
+  -1img4.png
+  -1img6o.jpg
+  -arrow.png
+  -as-seen-ted261ss-mob.png
+  -as-seen-ted861.png
+  -blue-seal-153-100-clickbank-5004291.png
+  -cad-dwg-software.jpg
+  -complete.png
+  -customproject1.jpg
+  -customproject2.jpg
+  -customproject2.png
+  -customproject3.jpg
+  -customproject3.png
+  -customproject4.jpg
+  -customproject4.png
+  -customproject6.jpg
+  -free-plans-dl-bb.png
+  -icon.png
+  -icon2.png
+  -icon3.png
+  -icon4.png
+  -img10.jpg
+  -img11.jpg
+  -img12.jpg
+  -img12m.jpg
+  -img13o.jpg
+  -img14.jpg
+  -img15.jpg
+  -img16.jpg
+  -img17.jpg
+  -img18.jpg
+  -img19.jpg
+  -img2.png
+  -img20.jpg
+  -img22.jpg
+  -img23.jpg
+  -img24.jpg
+  -img25.jpg
+  -img26.jpg
+  -img27.jpg
+  -img28.jpg
+  -img29.jpg
+  -img3.jpg
+  -img30.jpg
+  -img31.jpg
+  -img32.jpg
+  -img33.jpg
+  -img34.jpg
+  -img35.jpg
+  -img36.jpg
+  -img37-customers.jpg
+  -img38.jpg
+  -img39.jpg
+  -img4.jpg
+  -img40.jpg
+  -img41.jpg
+  -img42.jpg
+  -img43.jpg
+  -img44.jpg
+  -img45.jpg
+  -img48.jpg
+  -img49.jpg
+  -img5.jpg
+  -img50.jpg
+  -img52.jpg
+  -img53.jpg
+  -img7.jpg
+  -img8.jpg
+  -img9.jpg
+  -logo-header-white-pt.png
+  -logo-tab-white-pt.png
+  -logo.png
+  -main-bbbg1.jpg
+  -main-bbbg5.png
+  -placeholder-logo.png
+  -placeholder-logo.svg
+  -placeholder-user.jpg
+  -placeholder.jpg
+  -placeholder.svg
+  -plan1.jpg
+  -play-button-overlay-v4.png
+  -retina_wood-main-bg.jpg
+  -tedcompletetedpackage.jpg
+  -tednewbox400reader.jpg
+  -tedswoodworking-membershipc.png
+  -underline.png
+  -videoinsta1.jpg
+  -videoinsta2.jpg
+  -videoinsta3.jpg
+  -videoinsta4.jpg
+  -videoinsta5.jpg
+  -videoinsta6.jpg
+  -videoinsta7.jpg
+  -videoinsta8.jpg
+  -videoinsta9.jpg
+  -videoplayback.mp4
+  -wood-fail.jpg
+  -wooden1.jpg
+  -wooden1.png
+  -wooden10.jpg
+  -wooden11.jpg
+  -wooden12.jpg
+  -wooden2.jpg
+  -wooden3.jpg
+  -wooden4.jpg
+  -wooden5.jpg
+  -wooden6.png
+  -wooden6.webp
+  -wooden7.jpg
+  -wooden8.jpg
+  -WOODEN9.jpg
+  -woodenseller.jpg
+  -youtubethumbnail-v11-alt.png
 -README.md
 -script.js
 --styles
   -globals.css
 -tailwind.config.ts
 -tsconfig.json
+--types
+  -ContentBlock.ts
+-Untitled-2.yaml

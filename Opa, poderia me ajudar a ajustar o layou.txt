@@ -1,0 +1,13 @@
+Opa, poderia me ajudar a ajustar o layout.tsx e os erros de codigos que tenho atualmente?
+layout.tsx:
+
+Preciso que finalize as outras pontas soltas para o site ja rodar, sendo elas:
+rodar variação a,b,c, slug dinamica,
+gerar sessão de usuario unica e armazenar, seja em rotas novas o nas mesmas,
+armazenar cookies de sessão, erros:
+
+Cannot find module '@/types/ContentBlock' or its corresponding type declarations.ts(2307) na pagina [slug]/page.tsx
+
+tbm pode otimizar e deixar o app/page.tsx com todas as configurações juntos ao layout?
+
+ 

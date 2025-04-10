@@ -70,10 +70,8 @@ export function VideoHero() {
             </p>
           </motion.div>
 
-          {/* Split Content: Static Image and Video Box */}
-          <div className="flex flex-col md:flex-row gap-8 mb-12">
-            {/* Static Background Image Box */}
-            <div className="md:w-1/2">
+          <div className="flex flex-col md:flex-row justify-center gap-12 mb-12">
+            {/* <div className="md:w-1/2">
               <div className="rounded-xl overflow-hidden border border-deep-blue-700 shadow-2xl">
                 <img
                   src={videoPlaceholder}
@@ -81,7 +79,7 @@ export function VideoHero() {
                   className="w-full h-full object-cover"
                 />
               </div>
-            </div>
+            </div> */}
 
             {/* Video Box with Interactive Controls */}
             <div className="md:w-1/2">
@@ -128,7 +126,7 @@ export function VideoHero() {
                 <AnimatePresence>
                   {(isHovering || isPlaying) && (
                     <motion.div
-                      className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-deep-blue-950 to-transparent"
+                      className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-deep-blue-950 to-transparent justify-center flex"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 20 }}
@@ -165,7 +163,7 @@ export function VideoHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="mb-12"
+            className="mb-12 justify-center flex"
           >
             <motion.button
               className="bg-gold-brown-500 hover:bg-gold-brown-600 text-deep-blue-900 font-medium px-8 py-4 rounded-lg text-lg shadow-lg flex items-center justify-center group relative overflow-hidden"
